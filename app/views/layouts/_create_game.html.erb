@@ -1,0 +1,14 @@
+<p>Create a new game </p>
+<%= form_for(:game, url: games_path) do |f| %>
+
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.label :user_2 %>
+	<%= f.text_field :user_2 %>
+
+	<%= f.label :user_1 %>
+	<%= f.text_field :user_1 %>
+	<%= f.submit "Create new game" %>
+
+<% end %>

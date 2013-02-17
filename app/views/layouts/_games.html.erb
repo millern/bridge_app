@@ -1,0 +1,4 @@
+<p>You are playing in the following games<p>
+	<% @games.each do |g| %>
+		<li>Game <%= g.id %> against <%=g.user_2%></li>
+	<% end %>
