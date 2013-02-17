@@ -1,0 +1,13 @@
+<p>-------------------------------</p>
+<ul>
+	<li><%= link_to "Sign up", signup_path %></li>
+	<li>
+		<% if signed_in? %>
+			<%= link_to "Sign out", signout_path, method: "delete" %>
+		<% else %>
+			<%= link_to "Sign in", signin_path %>
+		<% end %>
+	</li>	
+</ul>
+
+<p>-------------------------------</p>
