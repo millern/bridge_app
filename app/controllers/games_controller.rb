@@ -4,7 +4,8 @@ class GamesController < ApplicationController
 
   def create
   	@game = Game.new(params[:game])
-  	@game.save
+    @hand = save_new_hand(@game)
+    update_current_game(@hand,@game)
   	redirect_to @game
   end
 
@@ -16,6 +17,7 @@ class GamesController < ApplicationController
   	@game = Game.find(params[:id])
   	@player1 = User.find(@game.user_1)
   	@player2 = User.find(@game.user_2)
+    @hand = Hand.find(@game.hand_id)
   end
 
   def destroy

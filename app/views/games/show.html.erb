@@ -1,4 +1,19 @@
 <p> Player 1 id: <%= @game.user_1 %></p>
-<p> Welcome: <%= @player1.name %>.  You are playing with <%= @player2.name %>. </p>
-<br />
-<%= @game.user_2 %>
+<p> Player 2 id: <%= @game.user_2 %> </p>
+<p> Welcome: <%= @player1.name %>.</p>
+<p> You are playing with <%= @player2.name %>. </p>
+
+<p>Current Hand</p>
+	<% if @hand %>
+		<p> Current Hand ID<%= @hand.id %> <p>
+	<% end %>
+<p>Cards</p>
+<p>North:<%= display_cards("North", @hand) %></p>
+<p>South:<%= display_cards("South", @hand) %></p>
+<p>East: <%= display_cards("East", @hand) %></p>
+<p>West: <%= display_cards("West", @hand) %></p>
+<%= form_for(:hands, url: hands_path) do |f| %>
+	<%= hidden_field_tag 'game_id', @game.id %>
+	<%= f.submit "Deal a new hand" %>
+
+<% end %>

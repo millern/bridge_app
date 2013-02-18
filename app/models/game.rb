@@ -8,11 +8,15 @@
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  hand_id    :integer
 #
 
 class Game < ActiveRecord::Base
-  attr_accessible :name, :user_1, :user_2
-  belongs_to :user
+  attr_accessible :name, :user_1, :user_2, :hand_id
+  
   validates :user_1, presence: true
   validates :user_2, presence: true
+  belongs_to :user
+  has_many :hands
+
 end

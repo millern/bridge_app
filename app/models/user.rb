@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum:6}
   validates :password_confirmation, presence:true
   has_many :games, foreign_key: "user_1", dependent: :destroy
+  has_many :games_as_p2, foreign_key: "user_2", class_name: "Game"
+  
   
 
 end

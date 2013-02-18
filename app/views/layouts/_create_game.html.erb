@@ -3,12 +3,11 @@
 
 	<%= f.label :name %>
 	<%= f.text_field :name %>
-
-	<%= f.label :user_2 %>
-	<%= f.text_field :user_2 %>
-
-	<%= f.label :user_1 %>
-	<%= f.text_field :user_1 %>
+	<br />
+	<%= f.label "Choose Opponent" %>
+	<%= f.select :user_2, options_from_collection_for_select(@users, :id, :name)%>
+	<br />
+	<%= f.hidden_field :user_1, :value => @user.id %>
 	<%= f.submit "Create new game" %>
 
 <% end %>

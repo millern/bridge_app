@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
     @games = find_user_games(@user)
+    @users = User.all
+    @users.delete(@user)
+    #@games1 = find_user_games_as_p2(@user)
   end
 
   def create

@@ -1,7 +1,7 @@
 <p>You are playing in the following games<p>
 	<% @games.each do |g| %>
 
-		<li>Game <%= g.id %> against <%=g.user_2%>
+		<li>Game <%= g.id %> against Player <%=g.user_2%>
 			<%= link_to "Go to game", g %>  <%= link_to "Delete Game", g,
                                   method: :delete,
                                   data: { confirm: "You sure?" } %> </li>
