@@ -1,19 +1,51 @@
-<p> Player 1 id: <%= @game.user_1 %></p>
-<p> Player 2 id: <%= @game.user_2 %> </p>
-<p> Welcome: <%= @player1.name %>.</p>
-<p> You are playing with <%= @player2.name %>. </p>
+<p> Player 1 id: <%= @game.user_1 %>,
+		Player 2 id: <%= @game.user_2 %> </p>
 
-<p>Current Hand</p>
 	<% if @hand %>
-		<p> Current Hand ID<%= @hand.id %> <p>
+		<p> Current Hand : <%= @hand.id %> <p>
 	<% end %>
-<p>Cards</p>
-<p>North:<%= display_cards("North", @hand) %></p>
-<p>South:<%= display_cards("South", @hand) %></p>
-<p>East: <%= display_cards("East", @hand) %></p>
-<p>West: <%= display_cards("West", @hand) %></p>
-<%= form_for(:hands, url: hands_path) do |f| %>
-	<%= hidden_field_tag 'game_id', @game.id %>
-	<%= f.submit "Deal a new hand" %>
 
-<% end %>
+	<%= @current_user.id %> <%= @current_user.name %> 
+
+	<% if @current_user.id == @game.user_1 %>
+		<p> You are playing North</p>
+		<p>North:<%= display_cards("North", @hand) %></p>
+	<% else %>
+		<p> You are playing South</p>
+		<p>South:<%= display_cards("South", @hand) %></p>
+	<% end %>
+
+
+	<a> Opponents' Hands</a>
+	<div>
+		<p>East: <%= display_cards("East", @hand) %></p>
+		<p>West: <%= display_cards("West", @hand) %></p>
+	</div>
+	<a> Bids </a>
+	
+	<table id="bidtable">
+		<th>North</th><th>South</th><th>East</th><th>West</th>
+		<% (1..10).each do |num| %>
+		<tr>
+			<% ['N','S','E','W'].each do |dir| %>
+			<td>
+				<% str = "#{dir}#{num}" %>
+				<%= "#{@bid[str]}" %>
+			</td>
+			<% end %>
+		</tr>	
+		<% end %>
+	</table>
+
+
+	<p>Bid ID: <%= @bid.id%></p>
+	<%= form_for(@bid) do |f| %>
+		<%= hidden_field_tag 'game_id', @game.id %>
+		<%= f.submit "Place Bid" %>
+
+	<% end %>
+
+	<%= form_for(:hands, url: hands_path) do |f| %>
+		<%= hidden_field_tag 'game_id', @game.id %>
+		<%= f.submit "Deal a new hand" %>
+	<% end %>

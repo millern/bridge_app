@@ -1,5 +1,9 @@
 BridgeApp::Application.routes.draw do
 
+  get "bids/new"
+
+  get "bids/show"
+
   get "hands/new"
 
   get "hands/show"
@@ -15,9 +19,12 @@ BridgeApp::Application.routes.draw do
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  root to: 'users#new'
 
   resources :games, only: [:new, :create, :show, :destroy]
   resources :hands, only: [:create,:show]
+  resources :bids, only: [:create, :show, :update]
+
 
 
 

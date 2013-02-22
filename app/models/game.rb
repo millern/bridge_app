@@ -11,6 +11,9 @@
 #  hand_id    :integer
 #
 
+#  user_1 plays North
+#  user_2 plays South
+
 class Game < ActiveRecord::Base
   attr_accessible :name, :user_1, :user_2, :hand_id
   

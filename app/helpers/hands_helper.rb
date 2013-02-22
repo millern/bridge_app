@@ -23,6 +23,7 @@ module HandsHelper
 			hand[index] = cards[i-1]
 			i+=1
 		end
+		#save_new_bid(hand)
 		hand.save
 		hand
 
@@ -42,6 +43,11 @@ module HandsHelper
 
 		card_array
 
+	end
+
+	def update_current_hand(hand,bid)
+		hand.bid_id = bid.id
+		hand.save
 	end
 
 end

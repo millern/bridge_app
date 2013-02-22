@@ -14,10 +14,12 @@ class GamesController < ApplicationController
   end
 
   def show
+    @current_user = current_user
   	@game = Game.find(params[:id])
   	@player1 = User.find(@game.user_1)
   	@player2 = User.find(@game.user_2)
     @hand = Hand.find(@game.hand_id)
+    @bid = Bid.find(@hand.bid_id)
   end
 
   def destroy

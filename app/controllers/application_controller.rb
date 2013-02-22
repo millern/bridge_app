@@ -3,4 +3,5 @@ class ApplicationController < ActionController::Base
   include SessionsHelper #by default, sessions helpers are abvailable in views, not controllers
   include GamesHelper
   include HandsHelper
+  include BidsHelper
 end
