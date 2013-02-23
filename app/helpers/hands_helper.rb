@@ -23,25 +23,8 @@ module HandsHelper
 			hand[index] = cards[i-1]
 			i+=1
 		end
-		#save_new_bid(hand)
 		hand.save
 		hand
-
-	end
-
-	#display player cards in the games view
-	def display_cards(direction, cards)
-		plyr_cards = Hash[ "North" => (1..13), "South" => (14..26),
-							 "East" => (27..39), "West" => (40..52)]
-
-		card_array = []
-
-		plyr_cards[direction].each do |i|
-			index = "c#{i}"
-			card_array << cards[index]
-		end
-
-		card_array
 
 	end
 
@@ -49,5 +32,71 @@ module HandsHelper
 		hand.bid_id = bid.id
 		hand.save
 	end
+
+	#View Methods
+	#Return a string of cards to be displayed in the game view
+	def display_cards(direction, cards)
+		plyr_cards = Hash[ "North" => (1..13), "South" => (14..26),
+							 "East" => (27..39), "West" => (40..52)]
+		card_array = []
+		plyr_cards[direction].each do |i|
+			index = "c#{i}"
+			card_array << cards[index]
+		end
+		card_display = sort(organize(card_array))
+		
+		cards_to_text(card_display)
+
+	end
+
+	def cards_to_text(card_display)
+		
+		return_string = ""
+		return_string << "C: "
+		return_string << card_display[0].join(' ').upcase
+		return_string << "<br />"
+		return_string << "D: "
+		return_string << card_display[1].join(' ').upcase
+		return_string << "<br />"
+		return_string << "H: "
+		return_string << card_display[2].join(' ').upcase
+		return_string << "<br />"
+		return_string << "S: "
+		return_string << card_display[3].join(' ').upcase
+		return_string << "<br />"
+		return_string.html_safe
+
+		
+	end
+	def organize(card_array)
+		c_arr = []
+		d_arr = []
+		h_arr = []
+		s_arr = []
+
+		card_array.each do |card|
+			case card[0]
+			when "c"
+				c_arr << card
+			when "h"
+				h_arr << card
+			when "d"
+				d_arr << card
+			when "s"
+				s_arr << card
+			end
+		end
+		suited_array = [c_arr,d_arr,h_arr,s_arr]
+	end
+
+	def sort(card_array)
+	return_cards = card_array
+	card_order = ["A","K","Q","J","1","9","8","7","6","5","4","3","2"]
+
+	return_cards.each do |suit|
+		suit.sort_by!{|card| card_order.index(card[1]) }
+	end
+	return_cards
+end
 
 end

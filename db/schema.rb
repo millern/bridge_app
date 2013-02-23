@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221061332) do
+ActiveRecord::Schema.define(:version => 20130222061055) do
 
   create_table "bids", :force => true do |t|
     t.integer  "hand_id"
@@ -56,8 +56,9 @@ ActiveRecord::Schema.define(:version => 20130221061332) do
     t.string   "W8"
     t.string   "W9"
     t.string   "W10"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "current_bid"
   end
 
   create_table "games", :force => true do |t|

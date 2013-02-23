@@ -1,8 +1,15 @@
 @import "bootstrap";
 
+/*Universal*/
 .hidden {
 	display: none;
 }
 .shown {
 	display:block;
 }
+body {
+  padding-top: 60px;
+}
+
+/*Game Page */
+

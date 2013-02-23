@@ -1,13 +1,11 @@
-<p>Create a new game </p>
+<h3>Create New Game</h3>
 <%= form_for(:game, url: games_path) do |f| %>
 
 	<%= f.label :name %>
 	<%= f.text_field :name %>
-	<br />
 	<%= f.label "Choose Opponent" %>
 	<%= f.select :user_2, options_from_collection_for_select(@users, :id, :name)%>
-	<br />
 	<%= f.hidden_field :user_1, :value => @user.id %>
-	<%= f.submit "Create new game" %>
+	<%= f.submit "Create new game", class:'btn' %>
 
 <% end %>

@@ -11,7 +11,7 @@ class BidsController < ApplicationController
 
   def update
   	@bid = Bid.find(params[:id])
-  	place_bid(@bid)
+  	place_bid(@bid, params[:bid][:submitted_bid])
   	redirect_to "/games/#{params[:game_id]}"
   end
 end

@@ -5,8 +5,10 @@ class GamesController < ApplicationController
   def create
   	@game = Game.new(params[:game])
     @hand = save_new_hand(@game)
-    update_current_game(@hand,@game)
-  	redirect_to @game
+    @bid = save_new_bid(@hand)
+    update_current_game(@hand, @game)
+    update_current_hand(@hand,@bid)
+    redirect_to @game
   end
 
   def play

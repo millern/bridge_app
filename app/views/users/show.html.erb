@@ -1,5 +1,15 @@
-<h3>User Profile</h3>
-<p><%=@user.name %></p>
-<p><%=@user.email %></p>
-<%= render 'layouts/list_games' %>
-<%= render 'layouts/create_game' %>
+
+<div class="row span12">
+	<div class="span3">
+		<h3>User Profile</h3>
+		<h4><%=@user.name%></h4>
+		<p><%=@user.email%></p>
+	</div>
+	<div class="span4">
+		<%= render 'layouts/list_games' %>
+		
+	</div>
+	<div class="span4">
+		<%= render 'layouts/create_game' %>
+	</div>
+</div>

@@ -1,9 +1,12 @@
-<p>You are playing in the following games<p>
+<h3>Current Games</h3>
+	<dl>
 	<% @games.each do |g| %>
 
-		<li>Game <%= g.id %>, <%=g.user_1%> vs. <%=g.user_2%>
-			<%= link_to "Go to game", g %>  <%= link_to "Delete Game", g,
+		<dt><%=g.name%> (Game #<%= g.id %>)<br />
+		 Player <%=g.user_1%> vs. Player <%=g.user_2%></dt>
+		<dl><%= link_to "Go to game", g %> | <%= link_to "Delete Game", g,
                                   method: :delete,
-                                  data: { confirm: "You sure?" } %> </li>
+                                  data: { confirm: "You sure?" } %></dl>
 		
 	<% end %>
+	</dl>

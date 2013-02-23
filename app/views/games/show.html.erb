@@ -1,51 +1,126 @@
-<p> Player 1 id: <%= @game.user_1 %>,
-		Player 2 id: <%= @game.user_2 %> </p>
+<% if @current_user.id == @game.user_1 %>
+	<% @user_direction = "North" %>
+<% end %>
+<% if @current_user.id == @game.user_2 %>
+	<% @user_direction = "South" %>
+<% end %>
 
-	<% if @hand %>
-		<p> Current Hand : <%= @hand.id %> <p>
-	<% end %>
-
-	<%= @current_user.id %> <%= @current_user.name %> 
-
-	<% if @current_user.id == @game.user_1 %>
-		<p> You are playing North</p>
-		<p>North:<%= display_cards("North", @hand) %></p>
-	<% else %>
-		<p> You are playing South</p>
-		<p>South:<%= display_cards("South", @hand) %></p>
-	<% end %>
+<div class="row">
+<div class="span12">
+	<h2 class="text-center"><%= @game.name%> (Game #<%=@game.id%>) <%= @player1.name %> with <%=@player2.name %> </h3>
 
 
-	<a> Opponents' Hands</a>
-	<div>
-		<p>East: <%= display_cards("East", @hand) %></p>
-		<p>West: <%= display_cards("West", @hand) %></p>
-	</div>
-	<a> Bids </a>
-	
-	<table id="bidtable">
-		<th>North</th><th>South</th><th>East</th><th>West</th>
-		<% (1..10).each do |num| %>
-		<tr>
-			<% ['N','S','E','W'].each do |dir| %>
-			<td>
-				<% str = "#{dir}#{num}" %>
-				<%= "#{@bid[str]}" %>
-			</td>
+
+	<div class="row">
+		<div class="span3 control-panel">
+			<% if current_bidder(@bid) == @user_direction %>
+				<p class="text-warning">It is your bid</p>
+			<% else %>
+				<p>It is <%=current_bidder(@bid) %>'s bid </p>
 			<% end %>
-		</tr>	
+			<%= form_for(@bid) do |f| %>
+				<%= hidden_field_tag 'game_id', @game.id %>
+				<%= f.label :submitted_bid, :value => params[:submitted_bid]%>
+				<%= f.text_field :submitted_bid, :value => params[:submitted_bid] %>
+				<%= f.submit "Place Bid" %>
+			<% end %>
+			<%= form_for(:hands, url: hands_path) do |f| %>
+				<%= hidden_field_tag 'game_id', @game.id %>
+			<%= f.submit "Deal a new hand" %>
+			<% end %>			
+		</div>
+
+		<div class="span9 game-panel">
+			<div class="row">
+				<div class="span3 offset3">
+					<% if @user_direction == "North" %>
+						<p>South</p>
+						<p><%= display_cards("South", @hand) %></p>
+					<% else %>
+						<p>North</p>
+						<p><%= display_cards("North", @hand) %></p>
+					<% end %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span3">
+					<% if @user_direction == "North" %>
+						<p>East</p>
+						<p><%= display_cards("East", @hand) %></p>
+					<% else %>
+						<p>West</p>
+						<p><%= display_cards("West", @hand) %></p>
+					<% end %>
+				</div>
+			
+				<div class="span3 offset3">
+					<% if @user_direction == "North" %>
+						<p>West</p>
+						<p><%= display_cards("West", @hand) %></p>
+					<% else %>
+						<p>East</p>
+						<p><%= display_cards("East", @hand) %></p>
+					<% end %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span3 offset3">
+				<% if @user_direction == "North" %>
+					<p>North (you)</p>
+					<p><%= display_cards("North", @hand) %></p>
+				<% else %>
+					<p>South (you)</p>
+					<p><%= display_cards("South", @hand) %></p>
+				<% end %>
+				</div>
+			</div>
+
+			<h4>Bidding History</h4>
+			<table class="table table-bordered table-condensed bid-table" >
+				<thead><tr><th>North</th><th>East</th><th>South</th><th>West</th></tr></thead>
+				
+				<% (1..10).each do |num| %>
+					<tr>
+					<% ['N','E','S','W'].each do |dir| %>
+						<td>
+						<% str = "#{dir}#{num}" %>
+						<%= "#{@bid[str]}" %>
+						</td>
+					<% end %>
+					</tr>	
+				<% end %>
+			</table>
+
+		</div>
+
+
+
+
+
+
+	
+
+
+	
+	
+	
+
+
+	
+
+
+
+
+	<div class="span12">
+		<small>
+		<p class="text-center">Boring debug info</p>
+		<% if @hand %>
+			<p> Current Hand : <%= @hand.id %> <p>
 		<% end %>
-	</table>
-
-
-	<p>Bid ID: <%= @bid.id%></p>
-	<%= form_for(@bid) do |f| %>
-		<%= hidden_field_tag 'game_id', @game.id %>
-		<%= f.submit "Place Bid" %>
-
-	<% end %>
-
-	<%= form_for(:hands, url: hands_path) do |f| %>
-		<%= hidden_field_tag 'game_id', @game.id %>
-		<%= f.submit "Deal a new hand" %>
-	<% end %>
+		<p> Current User: <%= @current_user.id %> , <%= @current_user.name %></p> 
+		<p>Bid ID: <%= @bid.id%></p>
+		<p>User Direction: <%= @user_direction %>
+		</small>
+	</div>
+</div>
+</div>

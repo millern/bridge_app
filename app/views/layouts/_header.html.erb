@@ -1,14 +1,21 @@
-<p>-------------------------------</p>
-<ul>
-		<% if signed_in? %>
-			<li>Welcome, <%=@current_user.name%> </li>
-			<li> <%= @current_user.id %>
-			<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-			<li><%= link_to "View your profile", current_user %></li>
-		<% else %>
-			<li><%= link_to "Sign in", signin_path %></li>
-			<li><%= link_to "Sign up", signup_path %></li>
-		<% end %>		
-</ul>
-
-<p>-------------------------------</p>
+<header class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			
+          <a class="brand" href="#">Vortex Bridge</a>
+         
+      	  	
+				<ul class="nav pull-right">
+				<% if signed_in? %>
+					<li><p class = "navbar-text"> Welcome, <%=current_user.name%></p></li>
+					<li><%= link_to "View your profile", current_user %></li>
+					<li><%= link_to "Sign out", signout_path, method: "delete" %></li>					
+				<% else %>
+					<li><%= link_to "Sign in", signin_path %></li>
+					<li><%= link_to "Sign up", signup_path %></li>
+				<% end %>		
+				</ul>
+			
+		</div>
+	</div>
+</header>
