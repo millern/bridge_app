@@ -9,13 +9,14 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  hand_id    :integer
+#  auto_opp   :boolean
 #
 
 #  user_1 plays North
 #  user_2 plays South
 
 class Game < ActiveRecord::Base
-  attr_accessible :name, :user_1, :user_2, :hand_id
+  attr_accessible :name, :user_1, :user_2, :hand_id, :auto_opp
   
   validates :user_1, presence: true
   validates :user_2, presence: true

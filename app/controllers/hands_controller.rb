@@ -1,4 +1,7 @@
+
+
 class HandsController < ApplicationController
+  protect_from_forgery :except => :create
   def new
 
   end
@@ -12,6 +15,8 @@ class HandsController < ApplicationController
     @bid = save_new_bid(@hand)
   	update_current_game(@hand, @game)
     update_current_hand(@hand,@bid)
+    hello_world
   	redirect_to "/games/#{@game.id}"
   end
+
 end

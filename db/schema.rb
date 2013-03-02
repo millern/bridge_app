@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222061055) do
+ActiveRecord::Schema.define(:version => 20130302035044) do
 
   create_table "bids", :force => true do |t|
     t.integer  "hand_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20130222061055) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "hand_id"
+    t.boolean  "auto_opp"
   end
 
   create_table "hands", :force => true do |t|

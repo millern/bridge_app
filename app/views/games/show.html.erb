@@ -7,7 +7,7 @@
 
 <div class="row">
 <div class="span12">
-	<h2 class="text-center"><%= @game.name%> (Game #<%=@game.id%>) <%= @player1.name %> with <%=@player2.name %> </h3>
+	<h2 class="text-center" id="change"><%= @game.name%> (Game #<%=@game.id%>) <%= @player1.name %> with <%=@player2.name %> </h3>
 
 
 
@@ -22,6 +22,7 @@
 				<%= hidden_field_tag 'game_id', @game.id %>
 				<%= f.label :submitted_bid, :value => params[:submitted_bid]%>
 				<%= f.text_field :submitted_bid, :value => params[:submitted_bid] %>
+				
 				<%= f.submit "Place Bid" %>
 			<% end %>
 			<%= form_for(:hands, url: hands_path) do |f| %>
@@ -33,34 +34,49 @@
 		<div class="span9 game-panel">
 			<div class="row">
 				<div class="span3 offset3">
-					<% if @user_direction == "North" %>
-						<p>South</p>
-						<p><%= display_cards("South", @hand) %></p>
-					<% else %>
-						<p>North</p>
-						<p><%= display_cards("North", @hand) %></p>
-					<% end %>
+						<% if @user_direction == "North" %>
+							<p>South</p>
+							<div class="partCards">
+								<p><%= display_cards("South", @hand) %></p>
+							</div>
+						<% else %>
+							<p>North</p>
+							<div class="partCards">
+								<p><%= display_cards("North", @hand) %></p>
+							</div>
+						<% end %>
+						<a href = "#" onClick="showPartHand()">Toggle Partner Hand</a>
 				</div>
 			</div>
 			<div class="row">
-				<div class="span3">
+				<div class="span3 oppHand">
 					<% if @user_direction == "North" %>
 						<p>East</p>
-						<p><%= display_cards("East", @hand) %></p>
+						<div class="oppCards">
+							<p><%= display_cards("East", @hand) %></p>
+						</div>
 					<% else %>
 						<p>West</p>
-						<p><%= display_cards("West", @hand) %></p>
+						<div class="oppCards">
+							<p><%= display_cards("West", @hand) %></p>
+						</div>
 					<% end %>
+					<a href = "#" onClick="showOppHands()">Toggle Opponent Hands</a>
 				</div>
 			
-				<div class="span3 offset3">
+				<div class="span3 offset3 oppHand">
 					<% if @user_direction == "North" %>
 						<p>West</p>
-						<p><%= display_cards("West", @hand) %></p>
+						<div class="oppCards">
+							<p><%= display_cards("West", @hand) %></p>
+						</div>
 					<% else %>
 						<p>East</p>
-						<p><%= display_cards("East", @hand) %></p>
+						<div class="oppCards">
+							<p><%= display_cards("East", @hand) %></p>
+						</div>
 					<% end %>
+					<a href = "#" onClick="showOppHands()">Toggle Opponent Hands</a>
 				</div>
 			</div>
 			<div class="row">
@@ -112,6 +128,7 @@
 
 
 	<div class="span12">
+		<div id="status"></div>
 		<small>
 		<p class="text-center">Boring debug info</p>
 		<% if @hand %>
@@ -124,3 +141,14 @@
 	</div>
 </div>
 </div>
+
+
+<script src="http://js.pusher.com/1.12/pusher.min.js"></script>
+<script type="text/javascript">
+  var pusher = new Pusher('f2438250d600d71c3573'); // uses your API KEY
+  var channel = pusher.subscribe('update-game');
+  channel.bind('update', function() {
+    	location.reload();
+  });
+</script>
+

@@ -74,4 +74,8 @@ module BidsHelper
 			return "Somebody"
 		end
 	end
+
+	def place_opponent_bid(bid)
+		place_bid(bid,'PA')
+	end
 end

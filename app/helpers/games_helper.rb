@@ -7,4 +7,9 @@ module GamesHelper
 		game.hand_id = hand.id
 		game.save
 	end
+	def hello_world
+    	Pusher['update-game'].trigger('update', {
+      	:greeting => "Hello there!"
+      	})    
+ 	end
 end

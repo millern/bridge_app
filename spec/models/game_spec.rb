@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  hand_id    :integer
+#  auto_opp   :boolean
 #
 
 require 'spec_helper'
